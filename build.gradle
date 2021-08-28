@@ -25,3 +25,8 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
+ext {
+    gsonVersion = '2.8.6'
+    retrofitVersion = '2.6.2'
+}

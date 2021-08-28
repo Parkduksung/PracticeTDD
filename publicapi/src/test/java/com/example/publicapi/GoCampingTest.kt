@@ -1,10 +1,12 @@
 package com.example.publicapi
 
+import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
 class GoCampingTest {
+
 
     /**
      * 한국관광공사 고캠핑 Api Operation Type
@@ -14,5 +16,12 @@ class GoCampingTest {
      * imageList - 이미지정보 목록 조회
      */
 
+    @Test
+    fun checkBaseListSuccessTest () {
+
+
+
+
+    }
 
 }
