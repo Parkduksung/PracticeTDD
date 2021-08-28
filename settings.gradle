@@ -1,2 +1,3 @@
 rootProject.name = "PracticeTDD"
 include ':app'
+include ':publicapi'
