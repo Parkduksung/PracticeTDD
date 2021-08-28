@@ -3,6 +3,8 @@ package com.example.publicapi
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnitRunner
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 @RunWith(MockitoJUnitRunner::class)
 class GoCampingTest {
@@ -17,11 +19,13 @@ class GoCampingTest {
      */
 
     @Test
-    fun checkBaseListSuccessTest () {
-
-
-
-
+    fun checkBaseListSuccessTest() {
+        val goCampingApi = Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl("http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/")
+            .build()
+            .create(PublicApi::class.java)
     }
+
 
 }
