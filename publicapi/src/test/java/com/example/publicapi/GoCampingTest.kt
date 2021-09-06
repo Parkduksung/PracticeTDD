@@ -11,6 +11,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 @RunWith(MockitoJUnitRunner::class)
 class GoCampingTest {
@@ -65,10 +67,6 @@ class GoCampingTest {
                 override fun request(): Request {
                     TODO("Not yet implemented")
                 }
-
-                override fun timeout(): Timeout {
-                    TODO("Not yet implemented")
-                }
             }
         )
     }
@@ -86,4 +84,36 @@ class GoCampingTest {
                 .build()
                 .create(T::class.java)
     }
+}
+
+interface PublicApi {
+
+
+    companion object {
+        private const val GO_CAMPING_KEY =
+            "R2RhdScz9hCftK1V5Ouq1pbZYgwUN5DYGpryUpEaaqb5XbqD0putXtCzB7GQ1y1F2fAzzD5c%2BkT8lD4E3nSQ1g%3D%3D"
+
+        private const val MOBILE_OS = "AND"
+
+        private const val MOBILE_APP = "CarCamping"
+
+        private const val BASE_LIST_URL = "basedList"
+
+        private const val TYPE_JSON = "json"
+
+    }
+
+
+    @GET(BASE_LIST_URL)
+    fun getBaseList(
+        @Query("ServiceKey") serviceKey: String = GO_CAMPING_KEY,
+        @Query("MobileOS") mobileOS: String = MOBILE_OS,
+        @Query("MobileApp") MobileApp: String = MOBILE_APP,
+        @Query("_type") _type: String = TYPE_JSON
+    ): Call<GoCampingResponse>
+
+}
+
+class GoCampingResponse {
+
 }
