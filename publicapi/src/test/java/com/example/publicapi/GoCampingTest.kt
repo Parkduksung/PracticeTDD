@@ -3,6 +3,7 @@ package com.example.publicapi
 import okhttp3.Request
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -30,6 +31,11 @@ class GoCampingTest {
      * imageList - 이미지정보 목록 조회
      */
 
+    @Before
+    fun setUp() {
+        goCampingApi = Mockito.mock(Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL)::class.java)
+    }
+
     @Test
     fun checkBaseListSuccessTest() {
 
@@ -47,10 +53,14 @@ class GoCampingTest {
     @Test
     fun checkLocationBasedList() {
 
-        mockGetBaseListPublicApi()
+        mockGetLocationBasedListPublicApi()
 
         val getLocationBasedList =
-            Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getLocationBasedList(lat = 0, log = 0)
+            Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getLocationBasedList(
+                mapX = 128.6142847,
+                mapY = 36.0345423,
+                radius = 2000
+            )
                 .execute()
 
         MatcherAssert.assertThat(
@@ -66,7 +76,7 @@ class GoCampingTest {
         Mockito.`when`(goCampingApi.getBaseList()).thenReturn(
             object : Call<GoCampingResponse> {
                 override fun execute(): Response<GoCampingResponse> {
-                    return Response.success(mockBaseListResponse)
+                    return Response.success(mockGoCampingResponse)
                 }
 
                 override fun enqueue(callback: Callback<GoCampingResponse>) {
@@ -98,10 +108,16 @@ class GoCampingTest {
 
     private fun mockGetLocationBasedListPublicApi() {
 
-        Mockito.`when`(goCampingApi.getLocationBasedList(lat = 0, log = 0)).thenReturn(
+        Mockito.`when`(
+            goCampingApi.getLocationBasedList(
+                mapX = 128.6142847,
+                mapY = 36.0345423,
+                radius = 2000
+            )
+        ).thenReturn(
             object : Call<GoCampingResponse> {
                 override fun execute(): Response<GoCampingResponse> {
-                    return Response.success(mockBaseListResponse)
+                    return Response.success(mockGoCampingResponse)
                 }
 
                 override fun enqueue(callback: Callback<GoCampingResponse>) {
@@ -135,7 +151,7 @@ class GoCampingTest {
         private const val GOCAPMING_BASE_URL =
             "http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/"
 
-        private val mockBaseListResponse =
+        private val mockGoCampingResponse =
             GoCampingResponse(
                 Response(
                     Body(
@@ -229,6 +245,8 @@ interface GoCampingApi {
 
         private const val BASE_LIST_URL = "basedList"
 
+        private const val LOCATION_BASED_LIST_URL = "locationBasedList"
+
         private const val TYPE_JSON = "json"
 
     }
@@ -242,6 +260,17 @@ interface GoCampingApi {
         @Query("_type") _type: String = TYPE_JSON
     ): Call<GoCampingResponse>
 
+
+    @GET(LOCATION_BASED_LIST_URL)
+    fun getLocationBasedList(
+        @Query("ServiceKey") serviceKey: String = GO_CAMPING_KEY,
+        @Query("MobileOS") mobileOS: String = MOBILE_OS,
+        @Query("MobileApp") mobileApp: String = MOBILE_APP,
+        @Query("MapX") mapX: Double,
+        @Query("MapY") mapY: Double,
+        @Query("radius") radius: Int,
+        @Query("_type") _type: String = TYPE_JSON
+    ): Call<GoCampingResponse>
 }
 
 data class GoCampingResponse(
