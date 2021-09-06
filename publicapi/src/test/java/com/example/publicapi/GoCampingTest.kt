@@ -44,10 +44,61 @@ class GoCampingTest {
         )
     }
 
+    @Test
+    fun checkLocationBasedList() {
+
+        mockGetBaseListPublicApi()
+
+        val getLocationBasedList =
+            Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getLocationBasedList(lat = 0, log = 0)
+                .execute()
+
+        MatcherAssert.assertThat(
+            "올바르게 response 값이 잘 나왔으므로 성공.",
+            getLocationBasedList.isSuccessful,
+            Matchers.`is`(true)
+        )
+    }
+
 
     private fun mockGetBaseListPublicApi() {
 
         Mockito.`when`(goCampingApi.getBaseList()).thenReturn(
+            object : Call<GoCampingResponse> {
+                override fun execute(): Response<GoCampingResponse> {
+                    return Response.success(mockBaseListResponse)
+                }
+
+                override fun enqueue(callback: Callback<GoCampingResponse>) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun clone(): Call<GoCampingResponse> {
+                    TODO("Not yet implemented")
+                }
+
+                override fun isExecuted(): Boolean {
+                    TODO("Not yet implemented")
+                }
+
+                override fun cancel() {
+                    TODO("Not yet implemented")
+                }
+
+                override fun isCanceled(): Boolean {
+                    TODO("Not yet implemented")
+                }
+
+                override fun request(): Request {
+                    TODO("Not yet implemented")
+                }
+            }
+        )
+    }
+
+    private fun mockGetLocationBasedListPublicApi() {
+
+        Mockito.`when`(goCampingApi.getLocationBasedList(lat = 0, log = 0)).thenReturn(
             object : Call<GoCampingResponse> {
                 override fun execute(): Response<GoCampingResponse> {
                     return Response.success(mockBaseListResponse)
