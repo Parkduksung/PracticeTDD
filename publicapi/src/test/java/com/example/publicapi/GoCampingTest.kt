@@ -30,7 +30,7 @@ class GoCampingTest {
 
     @Test
     fun checkBaseListSuccessTest() {
-        val goCampingApi = Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL)
+        val getBaseList = Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getBaseList()
 
     }
 
@@ -40,7 +40,7 @@ class GoCampingTest {
         Mockito.`when`(goCampingApi.getBaseList()).thenReturn(
             object : Call<GoCampingResponse> {
                 override fun execute(): Response<GoCampingResponse> {
-                    TODO("Not yet implemented")
+                    return Response.success(mockBaseListResponse)
                 }
 
                 override fun enqueue(callback: Callback<GoCampingResponse>) {
@@ -73,6 +73,76 @@ class GoCampingTest {
     companion object {
         private const val GOCAPMING_BASE_URL =
             "http://api.visitkorea.or.kr/openapi/service/rest/GoCamping/"
+
+        private val mockBaseListResponse =
+            GoCampingResponse(
+                Response(
+                    Body(
+                        Items(
+                            listOf(
+                                Item(
+                                    "",
+                                    0,
+                                    "",
+                                    0,
+                                    "",
+                                    "",
+                                    "",
+                                    0,
+                                    "",
+                                    0,
+                                    "",
+                                    "",
+                                    "",
+                                    0,
+                                    "",
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    "",
+                                    0,
+                                    "",
+                                    0,
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    "",
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    0,
+                                    "",
+                                    0,
+                                    "",
+                                    0,
+                                    0
+                                )
+                            )
+                        ), 30, 1,
+                        30
+                    ),
+                    Header("200", "")
+                )
+            )
     }
 
     object Retrofit {
