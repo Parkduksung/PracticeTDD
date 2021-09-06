@@ -1,7 +1,6 @@
 package com.example.publicapi
 
 import okhttp3.Request
-import okio.Timeout
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -19,7 +18,7 @@ class GoCampingTest {
 
 
     @Mock
-    lateinit var publicApi: PublicApi
+    lateinit var goCampingApi: GoCampingApi
 
     /**
      * 한국관광공사 고캠핑 Api Operation Type
@@ -31,14 +30,14 @@ class GoCampingTest {
 
     @Test
     fun checkBaseListSuccessTest() {
-        val goCampingApi = Retrofit.create<PublicApi>(GOCAPMING_BASE_URL)
+        val goCampingApi = Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL)
 
     }
 
 
     private fun mockGetBaseListPublicApi() {
 
-        Mockito.`when`(publicApi.getBaseList()).thenReturn(
+        Mockito.`when`(goCampingApi.getBaseList()).thenReturn(
             object : Call<GoCampingResponse> {
                 override fun execute(): Response<GoCampingResponse> {
                     TODO("Not yet implemented")
@@ -86,7 +85,7 @@ class GoCampingTest {
     }
 }
 
-interface PublicApi {
+interface GoCampingApi {
 
 
     companion object {
