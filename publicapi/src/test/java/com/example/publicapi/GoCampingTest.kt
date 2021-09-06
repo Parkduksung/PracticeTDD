@@ -92,6 +92,25 @@ class GoCampingTest {
 
     }
 
+    @Test
+    fun checkGetImageListSuccessTest() {
+
+        mockGetImageListPublicApi()
+
+        val getImageList =
+            Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getImageList(
+                contentId = 3429
+            )
+                .execute()
+
+        MatcherAssert.assertThat(
+            "올바르게 response 값이 잘 나왔으므로 성공.",
+            getSearchList.isSuccessful,
+            Matchers.`is`(true)
+        )
+
+    }
+
 
     private fun mockGetBaseListPublicApi() {
 
