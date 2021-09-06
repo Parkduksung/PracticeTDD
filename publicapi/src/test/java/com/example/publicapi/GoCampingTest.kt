@@ -16,6 +16,8 @@ import retrofit2.Response
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.net.URLEncoder
+import java.util.*
 
 @RunWith(MockitoJUnitRunner::class)
 class GoCampingTest {
@@ -78,7 +80,7 @@ class GoCampingTest {
 
         val getSearchList =
             Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getSearchList(
-                Xml.Encoding.valueOf("야영장")
+                keyword = URLEncoder.encode("야영장","UTF-8")
             )
                 .execute()
 
@@ -133,6 +135,45 @@ class GoCampingTest {
                 mapX = 128.6142847,
                 mapY = 36.0345423,
                 radius = 2000
+            )
+        ).thenReturn(
+            object : Call<GoCampingResponse> {
+                override fun execute(): Response<GoCampingResponse> {
+                    return Response.success(mockGoCampingResponse)
+                }
+
+                override fun enqueue(callback: Callback<GoCampingResponse>) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun clone(): Call<GoCampingResponse> {
+                    TODO("Not yet implemented")
+                }
+
+                override fun isExecuted(): Boolean {
+                    TODO("Not yet implemented")
+                }
+
+                override fun cancel() {
+                    TODO("Not yet implemented")
+                }
+
+                override fun isCanceled(): Boolean {
+                    TODO("Not yet implemented")
+                }
+
+                override fun request(): Request {
+                    TODO("Not yet implemented")
+                }
+            }
+        )
+    }
+
+    private fun mockGetSearchListPublicApi() {
+
+        Mockito.`when`(
+            goCampingApi.getSearchList(
+                keyword = URLEncoder.encode("야영장","UTF-8")
             )
         ).thenReturn(
             object : Call<GoCampingResponse> {
@@ -267,6 +308,8 @@ interface GoCampingApi {
 
         private const val LOCATION_BASED_LIST_URL = "locationBasedList"
 
+        private const val SEARCH_KEYWORD_URL = "searchList"
+
         private const val TYPE_JSON = "json"
 
     }
@@ -289,6 +332,15 @@ interface GoCampingApi {
         @Query("MapX") mapX: Double,
         @Query("MapY") mapY: Double,
         @Query("radius") radius: Int,
+        @Query("_type") _type: String = TYPE_JSON
+    ): Call<GoCampingResponse>
+
+    @GET(SEARCH_KEYWORD_URL)
+    fun getSearchList(
+        @Query("ServiceKey") serviceKey: String = GO_CAMPING_KEY,
+        @Query("MobileOS") mobileOS: String = MOBILE_OS,
+        @Query("MobileApp") mobileApp: String = MOBILE_APP,
+        @Query("keyword") keyword: String,
         @Query("_type") _type: String = TYPE_JSON
     ): Call<GoCampingResponse>
 }
