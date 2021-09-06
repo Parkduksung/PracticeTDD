@@ -51,7 +51,7 @@ class GoCampingTest {
     }
 
     @Test
-    fun checkLocationBasedList() {
+    fun checkLocationBasedListSuccessTest() {
 
         mockGetLocationBasedListPublicApi()
 
@@ -69,6 +69,7 @@ class GoCampingTest {
             Matchers.`is`(true)
         )
     }
+
 
 
     private fun mockGetBaseListPublicApi() {
