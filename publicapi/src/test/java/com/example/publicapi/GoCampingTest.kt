@@ -80,7 +80,7 @@ class GoCampingTest {
 
         val getSearchList =
             Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getSearchList(
-                keyword = URLEncoder.encode("야영장","UTF-8")
+                keyword = URLEncoder.encode("야영장", "UTF-8")
             )
                 .execute()
 
@@ -173,7 +173,7 @@ class GoCampingTest {
 
         Mockito.`when`(
             goCampingApi.getSearchList(
-                keyword = URLEncoder.encode("야영장","UTF-8")
+                keyword = URLEncoder.encode("야영장", "UTF-8")
             )
         ).thenReturn(
             object : Call<GoCampingResponse> {
