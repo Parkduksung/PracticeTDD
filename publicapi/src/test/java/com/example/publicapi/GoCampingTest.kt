@@ -1,5 +1,6 @@
 package com.example.publicapi
 
+import android.util.Xml
 import okhttp3.Request
 import org.hamcrest.MatcherAssert
 import org.hamcrest.Matchers
@@ -70,6 +71,24 @@ class GoCampingTest {
         )
     }
 
+    @Test
+    fun checkGetSearchListSuccessTest() {
+
+        mockGetSearchListPublicApi()
+
+        val getSearchList =
+            Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getSearchList(
+                Xml.Encoding.valueOf("야영장")
+            )
+                .execute()
+
+        MatcherAssert.assertThat(
+            "올바르게 response 값이 잘 나왔으므로 성공.",
+            getSearchList.isSuccessful,
+            Matchers.`is`(true)
+        )
+
+    }
 
 
     private fun mockGetBaseListPublicApi() {
