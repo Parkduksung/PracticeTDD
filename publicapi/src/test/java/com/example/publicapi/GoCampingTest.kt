@@ -1,6 +1,8 @@
 package com.example.publicapi
 
 import okhttp3.Request
+import org.hamcrest.MatcherAssert
+import org.hamcrest.Matchers
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mock
@@ -30,8 +32,17 @@ class GoCampingTest {
 
     @Test
     fun checkBaseListSuccessTest() {
-        val getBaseList = Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getBaseList()
 
+        mockGetBaseListPublicApi()
+
+
+        val getBaseList = Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getBaseList().execute()
+
+        MatcherAssert.assertThat(
+            "올바르게 response 값이 잘 나왔으므로 성공.",
+            getBaseList.body()?.response?.header?.resultCode,
+            Matchers.`is`(mockBaseListResponse.response.header.resultCode)
+        )
     }
 
 
@@ -140,7 +151,7 @@ class GoCampingTest {
                         ), 30, 1,
                         30
                     ),
-                    Header("200", "")
+                    Header("30", "")
                 )
             )
     }
