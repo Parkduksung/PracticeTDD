@@ -35,13 +35,12 @@ class GoCampingTest {
 
         mockGetBaseListPublicApi()
 
-
         val getBaseList = Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getBaseList().execute()
 
         MatcherAssert.assertThat(
             "올바르게 response 값이 잘 나왔으므로 성공.",
-            getBaseList.body()?.response?.header?.resultCode,
-            Matchers.`is`(mockBaseListResponse.response.header.resultCode)
+            getBaseList.isSuccessful,
+            Matchers.`is`(true)
         )
     }
 
