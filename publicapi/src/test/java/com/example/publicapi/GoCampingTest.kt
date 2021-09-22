@@ -99,13 +99,13 @@ class GoCampingTest {
 
         val getImageList =
             Retrofit.create<GoCampingApi>(GOCAPMING_BASE_URL).getImageList(
-                contentId = 3429
+                contentId = "3429"
             )
                 .execute()
 
         MatcherAssert.assertThat(
             "올바르게 response 값이 잘 나왔으므로 성공.",
-            getSearchList.isSuccessful,
+            getImageList.isSuccessful,
             Matchers.`is`(true)
         )
 
@@ -193,6 +193,45 @@ class GoCampingTest {
         Mockito.`when`(
             goCampingApi.getSearchList(
                 keyword = URLEncoder.encode("야영장", "UTF-8")
+            )
+        ).thenReturn(
+            object : Call<GoCampingResponse> {
+                override fun execute(): Response<GoCampingResponse> {
+                    return Response.success(mockGoCampingResponse)
+                }
+
+                override fun enqueue(callback: Callback<GoCampingResponse>) {
+                    TODO("Not yet implemented")
+                }
+
+                override fun clone(): Call<GoCampingResponse> {
+                    TODO("Not yet implemented")
+                }
+
+                override fun isExecuted(): Boolean {
+                    TODO("Not yet implemented")
+                }
+
+                override fun cancel() {
+                    TODO("Not yet implemented")
+                }
+
+                override fun isCanceled(): Boolean {
+                    TODO("Not yet implemented")
+                }
+
+                override fun request(): Request {
+                    TODO("Not yet implemented")
+                }
+            }
+        )
+    }
+
+    private fun mockGetImageListPublicApi() {
+
+        Mockito.`when`(
+            goCampingApi.getImageList(
+                contentId = "3429"
             )
         ).thenReturn(
             object : Call<GoCampingResponse> {
@@ -329,6 +368,8 @@ interface GoCampingApi {
 
         private const val SEARCH_KEYWORD_URL = "searchList"
 
+        private const val IMAGE_URL = "imageList"
+
         private const val TYPE_JSON = "json"
 
     }
@@ -360,6 +401,15 @@ interface GoCampingApi {
         @Query("MobileOS") mobileOS: String = MOBILE_OS,
         @Query("MobileApp") mobileApp: String = MOBILE_APP,
         @Query("keyword") keyword: String,
+        @Query("_type") _type: String = TYPE_JSON
+    ): Call<GoCampingResponse>
+
+    @GET(IMAGE_URL)
+    fun getImageList(
+        @Query("ServiceKey") serviceKey: String = GO_CAMPING_KEY,
+        @Query("MobileOS") mobileOS: String = MOBILE_OS,
+        @Query("MobileApp") mobileApp: String = MOBILE_APP,
+        @Query("contentId") contentId: String,
         @Query("_type") _type: String = TYPE_JSON
     ): Call<GoCampingResponse>
 }
