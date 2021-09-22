@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.example.kakaoapi.databinding.ActivityMainBinding
+import net.daum.mf.map.api.MapPOIItem
+import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var mapView: MapView
+
+    private lateinit var gpsTracker: GpsTracker
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,8 +54,61 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadMapView() {
         mapView = MapView(this)
+
+
+        mapView.setMapViewEventListener(object : MapView.MapViewEventListener {
+            override fun onMapViewInitialized(p0: MapView?) {
+
+            }
+
+            override fun onMapViewCenterPointMoved(p0: MapView?, p1: MapPoint?) {
+            }
+
+            override fun onMapViewZoomLevelChanged(p0: MapView?, p1: Int) {
+            }
+
+            override fun onMapViewSingleTapped(p0: MapView?, p1: MapPoint?) {
+            }
+
+            override fun onMapViewDoubleTapped(p0: MapView?, p1: MapPoint?) {
+            }
+
+            override fun onMapViewLongPressed(p0: MapView?, p1: MapPoint?) {
+            }
+
+            override fun onMapViewDragStarted(p0: MapView?, p1: MapPoint?) {
+            }
+
+            override fun onMapViewDragEnded(p0: MapView?, p1: MapPoint?) {
+            }
+
+            override fun onMapViewMoveFinished(p0: MapView?, p1: MapPoint?) {
+            }
+        })
+
+
+        gpsTracker = GpsTracker(this)
+
+        val mapPoint = MapPoint.mapPointWithGeoCoord(
+            gpsTracker.latitude,
+            gpsTracker.longitude
+        )
+
+        val mapPOIItem = MapPOIItem().apply {
+            itemName = "currentLocation"
+            this.mapPoint = mapPoint
+        }
+
+
+        mapView.addPOIItem(mapPOIItem)
+        mapView.setMapCenterPoint(mapPoint, true)
+
+
         binding.containerMap.addView(mapView)
+
+
     }
+
 
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(
