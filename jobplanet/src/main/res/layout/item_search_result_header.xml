@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="itemHeaderEntity"
+            type="com.jydev.jobplanetandroid.models.entity.search.ItemHeaderEntity" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <TextView
+        android:id="@+id/companyNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@{itemHeaderEntity.companyName}"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/logoImageView"
+        app:layout_constraintStart_toEndOf="@id/logoImageView"
+        app:layout_constraintTop_toTopOf="@+id/logoImageView"
+        tools:text="잡플래닛" />
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/totalAvgTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@{itemHeaderEntity.rateTotalAvg}"
+        android:textColor="@color/color_FFBE0A"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/companyNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView"
+        tools:text="3.0" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:text="@{itemHeaderEntity.industryName}"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/totalAvgTextView"
+        app:layout_constraintStart_toEndOf="@id/totalAvgTextView"
+        app:layout_constraintTop_toTopOf="@id/totalAvgTextView"
+        tools:text="제조업" />
+
+    <View
+        android:id="@+id/lineHead"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/color_808080"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/totalAvgTextView" />
+
+    <TextView
+        android:id="@+id/reviewSummaryTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@{itemHeaderEntity.reviewSummary}"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/lineHead"
+        tools:text="학습지 시장에서 높은 인지도를 가지고 있으나,\n학습지업 자체가 하락세이며 영업압박이 심함" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

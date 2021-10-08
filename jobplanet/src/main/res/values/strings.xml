@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">JobPlanetAndroid</string>
+    <string name="salary_avg">평균연봉</string>
+    <string name="man_won">만원</string>
+    <string name="interview_question">면접질문</string>
+    <string name="pros">장점</string>
+    <string name="cons">단점</string>
+    <string name="look_more_company">기업정보 더보기</string>
+    <string name="look_more_company_review">기업리뷰 더보기</string>
+    <string name="company_website">기업 웹사이트</string>
+    <string name="company_news">기업 뉴스</string>
+</resources>

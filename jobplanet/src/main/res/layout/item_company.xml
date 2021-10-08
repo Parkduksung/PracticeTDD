@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="itemHeaderEntity"
+            type="com.jydev.jobplanetandroid.models.entity.search.ItemHeaderEntity" />
+
+        <variable
+            name="companyCellTypeEntity"
+            type="com.jydev.jobplanetandroid.models.entity.search.CompanyCellTypeEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="20dp">
+
+        <include
+            android:id="@+id/itemHeader"
+            layout="@layout/item_search_result_header"
+            app:itemHeaderEntity="@{itemHeaderEntity}" />
+
+
+        <TextView
+            android:id="@+id/salaryAvgText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/salary_avg"
+            android:textColor="@color/color_7CB341"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/itemHeader" />
+
+        <TextView
+            android:id="@+id/salaryAvgTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="@{companyCellTypeEntity.salaryAvg}"
+            android:textColor="@color/black"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/salaryAvgText"
+            app:layout_constraintStart_toEndOf="@id/salaryAvgText"
+            app:layout_constraintTop_toTopOf="@id/salaryAvgText"
+            tools:text="3,000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@string/man_won"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@id/salaryAvgTextView"
+            app:layout_constraintStart_toEndOf="@id/salaryAvgTextView" />
+
+        <TextView
+            android:id="@+id/interviewQuestionText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/interview_question"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@id/salaryAvgText"
+            app:layout_constraintTop_toBottomOf="@id/salaryAvgText" />
+
+        <TextView
+            android:id="@+id/interviewQuestionTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="@{companyCellTypeEntity.interviewQuestion}"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/interviewQuestionText"
+            app:layout_constraintTop_toBottomOf="@id/interviewQuestionText"
+            tools:text="제안, 운영 디바이스 가리지 않고 다양한 업무의 경험과 뒷받침 되는 엄청난 포트폴리오를 쌓을 수 있다. 특히나 뉴미디어 쪽으로의 경험과 커리어를 쌓고 싶다면 강추" />
+
+        <View
+            android:id="@+id/lineBottom"
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/color_808080"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/interviewQuestionTextView" />
+
+        <TextView
+            android:id="@+id/lookMoreCompanyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/look_more_company"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toBottomOf="@id/lineBottom"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
