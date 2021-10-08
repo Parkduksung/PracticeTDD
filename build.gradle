@@ -6,9 +6,10 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.38.1'
         classpath "com.android.tools.build:gradle:4.2.2"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -29,4 +30,15 @@ task clean(type: Delete) {
 ext {
     gsonVersion = '2.8.6'
     retrofitVersion = '2.6.2'
+
 }
+
+ext.rxjava = "3.1.0"
+ext.rxandroid = "3.0.0"
+ext.okhttp = "4.9.0"
+ext.retrofit = "2.9.0"
+ext.retrofit_rxjava = "3.0.0"
+ext.hilt_extension = "1.0.0-alpha03"
+ext.hilt_version = "2.38"
+ext.glide = "4.12.0"
+ext.navigation = "2.3.5"

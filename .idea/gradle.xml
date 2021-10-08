@@ -11,8 +11,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/jobplanet" />
             <option value="$PROJECT_DIR$/kakaoapi" />
             <option value="$PROJECT_DIR$/publicapi" />
+            <option value="$PROJECT_DIR$/refactoringjobplanet" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

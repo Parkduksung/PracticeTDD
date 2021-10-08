@@ -2,3 +2,5 @@ rootProject.name = "PracticeTDD"
 include ':app'
 include ':publicapi'
 include ':kakaoapi'
+include ':refactoringjobplanet'
+include ':jobplanet'
