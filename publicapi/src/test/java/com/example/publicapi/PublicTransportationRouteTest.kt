@@ -1,6 +1,9 @@
 package com.example.publicapi
 
+import android.content.Context
+import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mock
 import org.mockito.junit.MockitoJUnitRunner
 import retrofit2.Call
 import retrofit2.converter.jaxb.JaxbConverterFactory
@@ -11,6 +14,8 @@ import retrofit2.http.Query
 class PublicTransportationRouteTest {
 
 
+    @Mock
+    lateinit var context: Context
 
 
     object Retrofit {
