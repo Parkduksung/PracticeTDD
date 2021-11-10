@@ -1,47 +1,63 @@
 package com.example.github
 
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.github.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    private lateinit var binding: ActivityMainBinding
 
+    private val githubAdapter by lazy { GithubAdapter() }
+
+    private val mainViewModel by lazy {
+        ViewModelProvider(this, object : ViewModelProvider.Factory {
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                if (modelClass.isAssignableFrom(MainViewModel::class.java)) {
+                    return MainViewModel(application) as T
+                } else throw IllegalAccessException()
+            }
+        }).get(MainViewModel::class.java)
     }
 
 
-    private fun getSearchUser(userId: String) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initUi()
+        initViewModel()
+    }
 
-        Retrofit.create<GithubApi>("https://api.github.com/").getGithubUser(q = userId)
-            .enqueue(object :
-                Callback<GithubResponse> {
-                override fun onResponse(
-                    call: Call<GithubResponse>,
-                    response: Response<GithubResponse>
-                ) {
-                    Log.d("결과", "onResponse")
+    private fun initUi() {
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setContentView(binding.root)
 
-                    response.body()?.let { result ->
-                        result.items.forEach {
-                            Log.d("결과", it.url)
-                            Log.d("결과", it.id.toString())
-                            Log.d("결과", it.score.toString())
-                            Log.d("결과", it.html_url)
-                            Log.d("결과", it.repos_url)
-                        }
-                    }
+        binding.rvUser.run {
+            adapter = githubAdapter
+        }
+
+    }
+
+    private fun initViewModel() {
+
+        binding.viewModel = mainViewModel
+
+        mainViewModel.mainViewStateLiveData.observe(this) { viewState ->
+            when (viewState) {
+                is MainViewModel.MainViewState.GetSearchResult -> {
+                    githubAdapter.clear()
+                    githubAdapter.addAll(viewState.list)
                 }
-                override fun onFailure(call: Call<GithubResponse>, t: Throwable) {
-                    Log.d("결과", t.message.toString())
-                }
-            })
 
+                is MainViewModel.MainViewState.Error -> {
+                    githubAdapter.clear()
+                    Toast.makeText(this, viewState.message, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
     }
 
