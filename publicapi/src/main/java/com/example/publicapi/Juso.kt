@@ -1,0 +1,31 @@
+package com.example.publicapi
+
+data class Juso(
+    val admCd: String,
+    val bdKdcd: String,
+    val bdMgtSn: String,
+    val bdNm: String,
+    val buldMnnm: String,
+    val buldSlno: String,
+    val detBdNmList: String,
+    val emdNm: String,
+    val emdNo: String,
+    val engAddr: String,
+    val hemdNm: String,
+    val hstryYn: String,
+    val jibunAddr: String,
+    val liNm: String,
+    val lnbrMnnm: String,
+    val lnbrSlno: String,
+    val mtYn: String,
+    val relJibun: String,
+    val rn: String,
+    val rnMgtSn: String,
+    val roadAddr: String,
+    val roadAddrPart1: String,
+    val roadAddrPart2: String,
+    val sggNm: String,
+    val siNm: String,
+    val udrtYn: String,
+    val zipNo: String
+)
